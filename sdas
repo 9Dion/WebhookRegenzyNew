@@ -1,0 +1,170 @@
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/Loco-CTO/UI-Library/main/VisionLibV2/source.lua'))()
+local Window = Library:Create({
+	Name = "Bitcoin Miner Regenzy", -- String
+	Footer = "Script free By Regenz!y#6153", -- String
+	ToggleKey = Enum.KeyCode.RightControl, -- Enum.KeyCode
+	LoadedCallback = function()
+		-- Function
+	end,
+
+	KeySystem = true, -- Boolean
+	Key = "Regenzy", -- String
+	MaxAttempts = 5, -- Integer
+	DiscordLink = "https://discord.gg/g6jqXpT57d", -- String (Set it to nil if you do not have one, the button will not pop out)
+	ToggledRelativeYOffset = 5 -- Number (Y Offset from bottom of your screen. Set it to nil if you want it to be centred)
+})
+local Tab = Window:Tab({
+	Name = "Main", -- String
+	Icon = "rbxassetid://11396131982", -- String
+	Color = Color3.new(1, 0, 0) -- Color3
+})
+local Section = Tab:Section({
+	Name = "Regenzy" -- String
+})
+
+
+function fps()
+   local decalsyeeted = true
+   local g = game
+   local w = g.Workspace
+   local l = g.Lighting
+   local t = w.Terrain
+   t.WaterWaveSize = 0
+   t.WaterWaveSpeed = 0
+   t.WaterReflectance = 0
+   t.WaterTransparency = 0
+   l.GlobalShadows = false
+   l.FogEnd = 9e9
+   l.Brightness = 0
+   settings().Rendering.QualityLevel = "Level01"
+   for i, v in pairs(g:GetDescendants()) do
+       if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then 
+           v.Material = "Plastic"
+           v.Reflectance = 0
+       elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+           v.Transparency = 1
+       elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+           v.Lifetime = NumberRange.new(0)
+       elseif v:IsA("Explosion") then
+           v.BlastPressure = 1
+           v.BlastRadius = 1
+       elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+           v.Enabled = false
+       elseif v:IsA("MeshPart") then
+           v.Material = "Plastic"
+           v.Reflectance = 0
+           v.TextureID = 10385902758728957
+       end
+   end
+   for i, e in pairs(l:GetChildren()) do
+       if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+           e.Enabled = false
+       end
+   end
+   end
+
+
+
+
+
+
+
+
+local Toggle = Section:Toggle({
+	Name = "ClaimStar", -- String
+	Default = false, -- Boolean
+	Callback = function(value)
+		_G.Star = value
+while _G.Star do wait(1)
+    game:GetService("ReplicatedStorage").Events.ClaimFreeBoostStar:FireServer()
+end
+end
+})
+
+local Toggle = Section:Toggle({
+	Name = "Overclock", -- String
+	Default = false, -- Boolean
+	Callback = function(value)
+		_G.oc = value
+while _G.oc do wait(1)
+    game:GetService("ReplicatedStorage").Events.ActivateOverclock:FireServer()
+    end
+	end
+})
+local Keybind = Section:Keybind({
+	Name = "Exchange Bitcoins",
+	Default = Enum.KeyCode.G,
+	Callback = function()
+		game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(true)
+		Library:Notify({
+	Name = "Regenzy", -- String
+	Text = "ExchangeBitcoins Success!!", -- String
+	Icon = "rbxassetid://11401835376", -- String
+	Duration = 1, -- Integer
+	Callback = function()
+	end
+})
+	end,
+	UpdateKeyCallback = function(Key)
+		-- Function
+	end
+})
+local Keybind = Section:Keybind({
+	Name = "Exchange Solaris",
+	Default = Enum.KeyCode.F,
+	Callback = function()
+		game:GetService("ReplicatedStorage").Events.ExchangeMoney:FireServer(false)
+		Library:Notify({
+	Name = "Regenzy", -- String
+	Text = "ExchangeSolaris Success!!", -- String
+	Icon = "rbxassetid://11401835376", -- String
+	Duration = 1, -- Integer
+	Callback = function()
+	end
+})
+	end,
+	UpdateKeyCallback = function(Key)
+		-- Function
+	end
+})
+
+
+local Slider = Section:Slider({
+	Name = "WalkSpeed", -- String
+	Max = 300, -- Integer
+	Min = 50, -- Integer
+	Default = 50, -- Integer
+	Callback = function(Value)
+    	getgenv().WalkSpeedValue = Value
+local Player = game:service'Players'.LocalPlayer;
+Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+end)
+Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+  	end
+})
+
+
+
+local Button = Section:Button({
+	Name = "Boost Fps", -- String
+	Callback = function()
+		fps()
+		Library:Notify({
+    Name = "Regenzy", -- String
+	Text = "BoostFps Success!!", -- String
+	Icon = "rbxassetid://11401835376", -- String
+	Duration = 1, -- Integer
+	Callback = function()
+	end
+})
+	end
+})
+
+
+local Button = Section:Button({
+	Name = "DestroyGUI", -- String
+	Callback = function()
+		Library:Destroy()
+	end
+})
